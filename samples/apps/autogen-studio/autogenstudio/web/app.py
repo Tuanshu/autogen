@@ -68,6 +68,8 @@ async def add_message(req: ChatWebRequestModel):
     print(f'[ts] check request catched by /messages={req}')
     req.flow_config.receiver.config.llm_config.cache_seed=42
     print(f'[ts] seed hardcoded to 42')
+    req.flow_config.sender.config.code_execution_config={'work_dir': None, 'use_docker': True}
+    print(f'[ts] hardcode work_dir=None and use_docker=Ture')
 
     try:
         response_message: Message = chatmanager.chat(
