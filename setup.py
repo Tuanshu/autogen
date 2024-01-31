@@ -33,7 +33,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/microsoft/autogen",
-    packages=setuptools.find_packages(include=["autogen*"], exclude=["test"]),
+    packages=setuptools.find_packages(include=["autogen*", "common"], exclude=["test"]),
     install_requires=install_requires,
     extras_require={
         "test": [

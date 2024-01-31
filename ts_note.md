@@ -17,3 +17,36 @@ pip install -e .
 
 在這裡沒有explictly指定llm, 有可能是不小心用到deepseek
 待會改順序可能有幫助
+
+#sudo yum update
+
+
+curl –sL https://rpm.nodesource.com/setup_20.x | sudo bash -
+
+sudo yum install  nodejs
+
+
+sudo npm install --global yarn
+
+pip install pydoc-markdown
+
+openai 1.10.0 requires typing-extensions<5,>=4.7, but you have typing-extensions 4.6.3 which is incompatible.
+
+暫時不管
+<!-- 
+cd website
+yarn install
+ -->
+
+cd samples/apps/autogen-studio
+pip install -e .
+
+cd frontend
+
+sudo npm install -g gatsby-cli
+
+yarn install
+yarn build
+autogenstudio ui --port 6609
+
+
