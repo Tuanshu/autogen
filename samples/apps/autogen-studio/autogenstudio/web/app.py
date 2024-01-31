@@ -66,6 +66,8 @@ async def add_message(req: ChatWebRequestModel):
     os.makedirs(user_dir, exist_ok=True)
 
     print(f'[ts] check request catched by /messages={req}')
+    req.flow_config.receiver.config.llm_config.cache_seed=42
+    print(f'[ts] seed hardcoded to 42')
 
     try:
         response_message: Message = chatmanager.chat(
@@ -290,6 +292,8 @@ async def delete_user_skills(req: DBWebRequestModel):
 
 @api.get("/agents")
 async def get_user_agents(user_id: str):
+    print('[ts] backend get agents called.')
+
     try:
         agents = dbutils.get_agents(user_id, dbmanager=dbmanager)
 
@@ -350,6 +354,7 @@ async def delete_user_agent(req: DBWebRequestModel):
 
 @api.get("/models")
 async def get_user_models(user_id: str):
+    print('[ts] backend get models called.')
     try:
         models = dbutils.get_models(user_id, dbmanager=dbmanager)
 
@@ -410,8 +415,11 @@ async def delete_user_model(req: DBWebRequestModel):
 
 @api.get("/workflows")
 async def get_user_workflows(user_id: str):
+    print('[ts] backend get workflows called.')
+
     try:
         workflows = dbutils.get_workflows(user_id, dbmanager=dbmanager)
+        print(f'[ts] workflows got={workflows}')
 
         return {
             "status": True,

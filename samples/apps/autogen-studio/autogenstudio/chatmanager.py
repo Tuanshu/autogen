@@ -16,6 +16,7 @@ class AutoGenChatManager:
         scratch_dir = os.path.join(work_dir, "scratch")
 
         # if no flow config is provided, use the default
+        print(f'[ts] before get_default_agent_config, flow_config={flow_config}')
         if flow_config is None:
             flow_config = get_default_agent_config(scratch_dir)
 

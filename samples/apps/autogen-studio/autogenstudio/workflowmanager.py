@@ -27,6 +27,7 @@ class AutoGenWorkFlowManager:
             history: An optional list of previous messages to populate the agents' history.
 
         """
+        print(f'[ts] in __init__ of AutoGenWorkFlowManager, config={config}')
         self.work_dir = work_dir or "work_dir"
         if clear_work_dir:
             clear_folder(self.work_dir)
@@ -156,6 +157,8 @@ class AutoGenWorkFlowManager:
             return manager
 
         else:
+            print(f'[ts] before sanitize_agent_spec, agent_spec={agent_spec}')
+
             agent_spec = self.sanitize_agent_spec(agent_spec)
 
             print(f'[ts] agent_spec.config={agent_spec.config}')
@@ -173,6 +176,7 @@ class AutoGenWorkFlowManager:
         Returns:
             An instance of the loaded agent.
         """
+        print(f'[ts] in load_agent_config, agent_config={agent_config}')
         if agent_type == "assistant":
             agent = autogen.AssistantAgent(**agent_config.dict())
             agent.register_reply([autogen.Agent, None], reply_func=self.process_reply, config={"callback": None})
