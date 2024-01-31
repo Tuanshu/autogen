@@ -19,9 +19,11 @@ for handler in handlers:
     handler.setLevel(logging.DEBUG)
     handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
 
-# Configure the root logger with these handlers
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s", handlers=handlers, encoding="utf-8")
-logger = logging.getLogger(__name__)
+# 創建並配置專用的日誌記錄器
+mylogger = logging.getLogger(__name__)
+mylogger.setLevel(logging.DEBUG)
+for handler in handlers:
+    mylogger.addHandler(handler)
 
 
 def timer(func):
@@ -34,15 +36,15 @@ def timer(func):
                 # The first argument would be 'self' for an instance method,
                 # or 'cls' for a class method.
                 class_name = args[0].__class__.__name__
-                logger.debug(f"{class_name}.{func.__name__} called.")
+                mylogger.debug(f"{class_name}.{func.__name__} called.")
             else:
-                logger.debug(f"{func.__name__} called.")
+                mylogger.debug(f"{func.__name__} called.")
 
             start = time.time()
             result = await func(*args, **kwargs)
             end = time.time()
             log_msg = f"{func.__name__} took {end - start:.2f} seconds. [coroutine function]"
-            logger.debug(log_msg)
+            mylogger.debug(log_msg)
             return result
 
         return async_wrapper
@@ -55,9 +57,9 @@ def timer(func):
                 # The first argument would be 'self' for an instance method,
                 # or 'cls' for a class method.
                 class_name = args[0].__class__.__name__
-                logger.debug(f"{class_name}.{func.__name__} called.")
+                mylogger.debug(f"{class_name}.{func.__name__} called.")
             else:
-                logger.debug(f"{func.__name__} called.")
+                mylogger.debug(f"{func.__name__} called.")
 
             gen = func(*args, **kwargs)
             start = time.time()
@@ -66,7 +68,7 @@ def timer(func):
                 end = time.time()
                 log_msg = f"{func.__name__} to first value took {end - start:.2f} seconds. [async coroutine function]"
                 print(log_msg)
-                logger.debug(log_msg)
+                mylogger.debug(log_msg)
                 yield first_val
                 async for item in gen:
                     yield item
@@ -83,16 +85,16 @@ def timer(func):
                 # The first argument would be 'self' for an instance method,
                 # or 'cls' for a class method.
                 class_name = args[0].__class__.__name__
-                logger.debug(f"{class_name}.{func.__name__} called.")
+                mylogger.debug(f"{class_name}.{func.__name__} called.")
             else:
-                logger.debug(f"{func.__name__} called.")
+                mylogger.debug(f"{func.__name__} called.")
 
             start = time.time()
             result = func(*args, **kwargs)
             end = time.time()
             log_msg = f"{func.__name__} took {end - start:.2f} seconds. [not coroutine function]"
             print(log_msg)
-            logger.debug(log_msg)
+            mylogger.debug(log_msg)
             return result
 
         return sync_wrapper

@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Union, Tuple
 from ..code_utils import content_str
 from .agent import Agent
 from .conversable_agent import ConversableAgent
-from common.decorators import logger as mylogger
+from common.decorators import mylogger
 logger = logging.getLogger(__name__)
 
 
