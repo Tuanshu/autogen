@@ -157,6 +157,8 @@ class AutoGenWorkFlowManager:
 
         else:
             agent_spec = self.sanitize_agent_spec(agent_spec)
+
+            print(f'[ts] agent_spec.config={agent_spec.config}')
             agent = self.load_agent_config(agent_spec.config, agent_spec.type)
             return agent
 

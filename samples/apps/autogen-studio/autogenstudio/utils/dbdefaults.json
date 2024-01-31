@@ -2,13 +2,13 @@
   "models": [
     {
       "model": "openchat_3.5",
-      "api_key": "dummy",
+      "api_key": "sk-xxxxxx",
       "base_url": "http://localhost:6611/v1",
       "api_type": "openai"
     },
     {
       "model": "deepseek-coder-6.7b-instruct",
-      "api_key": "dummy",
+      "api_key": "sk-xxxxxx",
       "base_url": "http://localhost:6611/v1",
       "api_type": "openai"
     }
@@ -51,10 +51,16 @@
         "llm_config": {
           "config_list": [
             {
-              "model": "openchat_3.5"
+              "model": "openchat_3.5",
+              "api_key": "sk-xxxxxx",
+              "base_url": "http://localhost:6611/v1",
+              "api_type": "openai"
             },
             {
-              "model": "deepseek-coder-6.7b-instruct"
+              "model": "deepseek-coder-6.7b-instruct",
+              "api_key": "sk-xxxxxx",
+              "base_url": "http://localhost:6611/v1",
+              "api_type": "openai"
             }
           ],
           "temperature": 0.1,
@@ -114,14 +120,16 @@
           "llm_config": {
             "config_list": [
               {
-                "model": "gpt-4-1106-preview"
+                "model": "openchat_3.5",
+                "api_key": "sk-xxxxxx",
+                "base_url": "http://localhost:6611/v1",
+                "api_type": "openai"
               },
               {
-                "model": "gpt-3.5-turbo-16k"
-              },
-              {
-                "model": "TheBloke/zephyr-7B-alpha-AWQ",
-                "base_url": "http://localhost:8000/v1"
+                "model": "deepseek-coder-6.7b-instruct",
+                "api_key": "sk-xxxxxx",
+                "base_url": "http://localhost:6611/v1",
+                "api_type": "openai"
               }
             ],
             "temperature": 0.1,
@@ -160,7 +168,10 @@
           "llm_config": {
             "config_list": [
               {
-                "model": "gpt-4-1106-preview"
+                "model": "openchat_3.5",
+                "api_key": "sk-xxxxxx",
+                "base_url": "http://localhost:6611/v1",
+                "api_type": "openai"
               }
             ],
             "temperature": 0.1,
@@ -182,7 +193,10 @@
                 "llm_config": {
                   "config_list": [
                     {
-                      "model": "gpt-4-1106-preview"
+                      "model": "openchat_3.5",
+                      "api_key": "sk-xxxxxx",
+                      "base_url": "http://localhost:6611/v1",
+                      "api_type": "openai"
                     }
                   ],
                   "temperature": 0.1,
@@ -201,7 +215,10 @@
                 "llm_config": {
                   "config_list": [
                     {
-                      "model": "gpt-4-1106-preview"
+                      "model": "openchat_3.5",
+                      "api_key": "sk-xxxxxx",
+                      "base_url": "http://localhost:6611/v1",
+                      "api_type": "openai"
                     }
                   ],
                   "temperature": 0.1,
@@ -220,7 +237,10 @@
                 "llm_config": {
                   "config_list": [
                     {
-                      "model": "gpt-4-1106-preview"
+                      "model": "openchat_3.5",
+                      "api_key": "sk-xxxxxx",
+                      "base_url": "http://localhost:6611/v1",
+                      "api_type": "openai"
                     }
                   ],
                   "temperature": 0.1,
@@ -276,14 +296,7 @@
           "llm_config": {
             "config_list": [
               {
-                "model": "gpt-4-1106-preview"
-              },
-              {
-                "model": "gpt-3.5-turbo-16k"
-              },
-              {
-                "model": "TheBloke/zephyr-7B-alpha-AWQ",
-                "base_url": "http://localhost:8000/v1"
+                "model": "openchat_3.5"
               }
             ],
             "temperature": 0.1,

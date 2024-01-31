@@ -50,3 +50,5 @@ yarn build
 autogenstudio ui --port 6609
 
 
+autogenstudio ui --host 0.0.0.0 --port 6607
+

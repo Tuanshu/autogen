@@ -109,6 +109,9 @@ class OpenAIWrapper:
             logger.warning("openai client was provided with an empty config_list, which may not be intended.")
         if config_list:
             config_list = [config.copy() for config in config_list]  # make a copy before modifying
+            print(f'[ts] check self.openai_kwargs={self.openai_kwargs}')
+            print(f'[ts] check config_list={config_list}')
+
             self._clients: List[OpenAI] = [
                 self._client(config, openai_config) for config in config_list
             ]  # could modify the config
@@ -119,6 +122,7 @@ class OpenAIWrapper:
         else:
             self._clients = [self._client(extra_kwargs, openai_config)]
             self._config_list = [extra_kwargs]
+        
 
     def _separate_openai_config(self, config: Dict[str, Any]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """Separate the config into openai_config and extra_kwargs."""

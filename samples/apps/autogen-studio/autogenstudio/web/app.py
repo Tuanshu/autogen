@@ -65,6 +65,8 @@ async def add_message(req: ChatWebRequestModel):
     user_dir = os.path.join(folders["files_static_root"], "user", md5_hash(message.user_id))
     os.makedirs(user_dir, exist_ok=True)
 
+    print(f'[ts] check request catched by /messages={req}')
+
     try:
         response_message: Message = chatmanager.chat(
             message=message,
