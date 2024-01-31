@@ -356,6 +356,10 @@ def execute_code(
         str: The error message if the code fails to execute; the stdout otherwise.
         image: The docker image name after container run when docker is used.
     """
+
+    # ts
+    logger.info('[ts] execute_code called.')
+
     if all((code is None, filename is None)):
         error_msg = f"Either {code=} or {filename=} must be provided."
         logger.error(error_msg)
@@ -384,11 +388,16 @@ def execute_code(
     file_dir = os.path.dirname(filepath)
     os.makedirs(file_dir, exist_ok=True)
 
+    logger.info(f'[ts] filepath={filepath},file_dir={file_dir}')
+
     if code is not None:
+        logger.info(f'[ts] about to write file locally. (but not executing yet)')
         with open(filepath, "w", encoding="utf-8") as fout:
             fout.write(code)
 
     if not use_docker or running_inside_docker:
+        logger.info(f'[ts] about to run code locally.')
+
         # already running in a docker container
         cmd = [
             sys.executable if lang.startswith("python") else _cmd(lang),
@@ -449,9 +458,13 @@ def execute_code(
     for image in image_list:
         # check if the image exists
         try:
+            logger.info(f'[ts] try using {image}')
+
             client.images.get(image)
             break
         except docker.errors.ImageNotFound:
+            logger.info(f'[ts] {image} not found, seem about to pull.')
+
             # pull the image
             print("Pulling image", image)
             try:
@@ -468,6 +481,7 @@ def execute_code(
         f'{_cmd(lang)} "{filename}"; exit_code=$?; echo -n {exit_code_str}; echo -n $exit_code; echo {exit_code_str}',
     ]
     # create a docker container
+    logger.info(f'[ts] about to run container with {image} and cmd={cmd}')
     container = client.containers.run(
         image,
         command=cmd,

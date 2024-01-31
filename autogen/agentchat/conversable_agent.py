@@ -7,7 +7,7 @@ import logging
 import re
 from collections import defaultdict
 from typing import Any, Awaitable, Callable, Dict, List, Literal, Optional, Tuple, Type, TypeVar, Union
-
+from common.decorators import logger
 from .. import OpenAIWrapper
 from ..cache.cache import Cache
 from ..code_utils import (
@@ -690,6 +690,10 @@ class ConversableAgent(Agent):
         Raises:
             RuntimeError: if any async reply functions are registered and not ignored in sync chat.
         """
+        # ts
+        logger.info('[ts] initiate_chat called.')
+
+
         for agent in [self, recipient]:
             agent._raise_exception_on_async_reply_functions()
             agent.previous_cache = agent.client_cache
