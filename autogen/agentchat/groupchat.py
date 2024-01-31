@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Union, Tuple
 from ..code_utils import content_str
 from .agent import Agent
 from .conversable_agent import ConversableAgent
-
+from common.decorators import logger as mylogger
 logger = logging.getLogger(__name__)
 
 
@@ -143,6 +143,8 @@ Then select the next role from {[agent.name for agent in agents]} to play. Only 
                 f"It should be one of {self._VALID_SPEAKER_SELECTION_METHODS} (case insensitive). "
             )
 
+        mylogger.info(f"[ts] _prepare_and_select_agents called with  self.speaker_selection_method.lower()={self.speaker_selection_method.lower()}")
+
         if not isinstance(self.allow_repeat_speaker, (bool, list)):
             raise ValueError("GroupChat allow_repeat_speaker should be a bool or a list of Agents.")
         # If provided a list, make sure the agent is in the list
@@ -154,6 +156,9 @@ Then select the next role from {[agent.name for agent in agents]} to play. Only 
 
         agents = self.agents
         n_agents = len(agents)
+
+        mylogger.info(f"[ts] _prepare_and_select_agents about to select agents in {agents} with n_agents={n_agents}")
+
         # Warn if GroupChat is underpopulated
         if n_agents < 2:
             raise ValueError(
@@ -219,10 +224,15 @@ Then select the next role from {[agent.name for agent in agents]} to play. Only 
         return selected_agent, agents, select_speaker_messages
 
     def select_speaker(self, last_speaker: Agent, selector: ConversableAgent):
+        mylogger.info(f'[ts] select_speaker called, last_speaker={last_speaker}')
         """Select the next speaker."""
         selected_agent, agents, messages = self._prepare_and_select_agents(last_speaker)
         if selected_agent:
+            mylogger.info(f'[ts] selected_agent={selected_agent} found with _prepare_and_select_agents.')
             return selected_agent
+        
+        mylogger.info(f'[ts] seem _prepare_and_select_agents fail to select agents, trying the hard way.')
+
         # auto speaker selection
         selector.update_system_message(self.select_speaker_msg(agents))
         final, name = selector.generate_oai_reply(messages)

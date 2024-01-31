@@ -45,10 +45,11 @@ user_proxy = autogen.UserProxyAgent(
     name="User_proxy",
     system_message="A human admin.",
     code_execution_config={
-        "last_n_messages": 2,
+        "last_n_messages": 2, 
         "work_dir": "groupchat",
         "use_docker": True,
     },  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
+    #code_execution_config=False,  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
     human_input_mode="TERMINATE",
 )
 coder = autogen.AssistantAgent(
@@ -64,8 +65,11 @@ groupchat = autogen.GroupChat(agents=[user_proxy, coder, pm], messages=[], max_r
 manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config_openchat)
 
 #%%
+test_message1="please create a project with two folder, 'domain' and 'infrastructure'. then, create a interface.py in `domain` folder, then create a impl.py in 'infrastructure'. the method I need is `add` to add two numerical number."
+test_message2="please write a helloworld.py that can be used to sum two numerical numbers."
+
 user_proxy.initiate_chat(
-    manager, message="can you write a helloworld.py that print hellowrold in stdout?"
+    manager, message=test_message2
 )
 # type exit to terminate the chat
 # %%

@@ -358,7 +358,7 @@ def execute_code(
     """
 
     # ts
-    logger.info('[ts] execute_code called.')
+    logger.info(f'[ts] execute_code called with filename (original_filename)={filename}')
 
     if all((code is None, filename is None)):
         error_msg = f"Either {code=} or {filename=} must be provided."
@@ -391,7 +391,7 @@ def execute_code(
     logger.info(f'[ts] filepath={filepath},file_dir={file_dir}')
 
     if code is not None:
-        logger.info(f'[ts] about to write file locally. (but not executing yet)')
+        logger.info(f'[ts] about to write file {filepath} locally. (but not executing yet)')
         with open(filepath, "w", encoding="utf-8") as fout:
             fout.write(code)
 
@@ -502,6 +502,8 @@ def execute_code(
         return 1, TIMEOUT_MSG, image
     # get the container logs
     logs = container.logs().decode("utf-8").rstrip()
+    logger.info(f'[ts] logs from container fetched: {logs}')
+
     # commit the image
     tag = _sanitize_filename_for_docker_tag(filename)
     container.commit(repository="python", tag=tag)
